@@ -1,4 +1,4 @@
-var file1Html = React.createClass({
+var File1Html = React.createClass({
   render: function() {
     return (
 
@@ -8,7 +8,7 @@ var file1Html = React.createClass({
     );
   }
 });
-var file2Html = React.createClass({
+var File2Html = React.createClass({
   render: function() {
     return (
 
@@ -18,3 +18,4 @@ var file2Html = React.createClass({
     );
   }
 });
+module.exports = {file1:File1Html,file2:File2Html};

@@ -13,6 +13,8 @@ module.exports = function(grunt) {
     var HTMLtoJSX = require('htmltojsx');
     var path = require('path');
 
+    var components = {};
+
     var normalizePath = function(p) {
         if (path.sep !== '/') {
             return p.replace(/\\/g, '/');
@@ -21,7 +23,15 @@ module.exports = function(grunt) {
     };
 
     var outputClassName = function(filepath) {
-        return filepath.replace(/.*\/([a-z0-9]*).html$/gi, '$1') + 'Html';
+        var name = filepath.replace(/.*\/([a-z0-9]*).html$/gi, '$1');
+
+        var compoName = name.replace(/\b[a-z]/, function(letter) {
+            return letter.toUpperCase();
+        }) + 'Html';
+
+        components[name] = compoName;
+
+        return compoName;
     };
 
     var convert2jsx = function(filepath) {
@@ -31,6 +41,10 @@ module.exports = function(grunt) {
         });
 
         return converter.convert(grunt.file.read(filepath));
+    };
+
+    var addModuleExports = function() {
+        return 'module.exports = ' + JSON.stringify(components).replace(/"/g, '') + ';';
     };
 
     // Please see the Grunt documentation for more information regarding task
@@ -52,6 +66,8 @@ module.exports = function(grunt) {
                 // Convert file
                 return convert2jsx(normalizePath(filepath));
             }).join(grunt.util.normalizelf('\n'));
+
+            src += '\n' + addModuleExports();
 
             // Write the destination file.
             grunt.file.write(f.dest, src);
