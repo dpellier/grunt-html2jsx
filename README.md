@@ -2,6 +2,10 @@
 
 > Convert HTML files to JSX
 
+This plugin use the react-magic htmltojsx module.
+
+(see https://github.com/reactjs/react-magic/blob/master/README-htmltojsx.md)
+
 ## Getting Started
 This plugin requires Grunt `~0.4.5`
 
