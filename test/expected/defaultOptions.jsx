@@ -1,3 +1,4 @@
+var React = require('react');
 var File1Html = React.createClass({
   render: function() {
     return (
